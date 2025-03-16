@@ -1,3 +1,17 @@
-# crafts_ordering_web
+# Findzy - Handmade Craft Marketplace
 
-![WhatsApp Image 2024-07-31 at 12 14 34_7f6a556a](https://github.com/user-attachments/assets/06f6422f-2fa0-4b6f-a6b1-ff1fce770392)
+Findzy is an **online marketplace** where small entrepreneurs and artisans can **sell and showcase their handmade crafts**, including **paintings, jewelry, woodwork, knitting, macrame, and custom gift boxes**. This platform connects buyers with talented creators worldwide, offering a seamless shopping experience.
+
+---
+
+## 🌟 Features  
+
+✅ **Browse & Search Crafts** – Discover unique handmade products from various categories.  
+✅ **Order & Payment** – Securely place orders for custom or pre-made crafts.  
+✅ **Seller Registration** – Artisans can create profiles and list their handmade items.  
+✅ **Location-Based Search** – Find local artisans and support nearby craft businesses.  
+✅ **Discounts & Offers** – Enjoy exclusive deals on select products.  
+
+---
+
+## 📂 Project Structure
