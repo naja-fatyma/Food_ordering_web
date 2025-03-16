@@ -1,48 +1,53 @@
-$(function () {
-  // Main Menu JS
-  $(window).scroll(function () {
-    if ($(this).scrollTop() < 50) {
-      $("nav").removeClass("site-top-nav");
-      $("#back-to-top").fadeOut();
-    } else {
-      $("nav").addClass("site-top-nav");
-      $("#back-to-top").fadeIn();
+// Custom JavaScript for Findzy - Handmade Craft Marketplace
+
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("Findzy Marketplace Loaded!");
+
+    // Search Functionality
+    const searchForm = document.querySelector("#search-section form");
+    if (searchForm) {
+        searchForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+            const query = document.querySelector("input[name='query']").value.trim().toLowerCase();
+            window.location.href = `craft.html?search=${query}`;
+        });
     }
-  });
 
-  // Shopping Cart Toggle JS
-  $("#shopping-cart").on("click", function () {
-    $("#cart-content").toggle("blind", "", 500);
-  });
+    // Category Filtering
+    const urlParams = new URLSearchParams(window.location.search);
+    const selectedCategory = urlParams.get("category");
+    
+    if (selectedCategory) {
+        filterCraftsByCategory(selectedCategory);
+    }
 
-  // Back-To-Top Button JS
-  $("#back-to-top").click(function (event) {
-    event.preventDefault();
-    $("html, body").animate(
-      {
-        scrollTop: 0,
-      },
-      1000
-    );
-  });
+    function filterCraftsByCategory(category) {
+        const craftItems = document.querySelectorAll(".craft-item");
+        craftItems.forEach((item) => {
+            const itemCategory = item.getAttribute("data-category");
+            if (itemCategory !== category) {
+                item.style.display = "none";
+            } else {
+                item.style.display = "block";
+            }
+        });
+    }
 
-  // Delete Cart Item JS
-  $(document).on("click", ".btn-delete", function (event) {
-    event.preventDefault();
-    $(this).closest("tr").remove();
-    updateTotal();
-  });
+    // Add to Cart Functionality
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-  // Update Total Price JS
-  function updateTotal() {
-    let total = 0;
-    $("#cart-content tr").each(function () {
-      const rowTotal = parseFloat($(this).find("td:nth-child(5)").text().replace("$", ""));
-      if (!isNaN(rowTotal)) {
-        total += rowTotal;
-      }
+    document.querySelectorAll(".craft-item button").forEach((button) => {
+        button.addEventListener("click", function () {
+            const craftItem = this.parentElement;
+            const itemName = craftItem.querySelector("h3").innerText;
+            const itemPrice = craftItem.getAttribute("data-price") || "0"; // Default price 0 if not found
+            const itemImage = craftItem.querySelector("img").src;
+
+            const cartItem = { name: itemName, price: itemPrice, image: itemImage };
+            cart.push(cartItem);
+            localStorage.setItem("cart", JSON.stringify(cart));
+
+            alert(`${itemName} has been added to your cart!`);
+        });
     });
-    $("#cart-content th:nth-child(5)").text("$" + total.toFixed(2));
-    $(".tbl-full th:nth-child(6)").text("$" + total.toFixed(2));
-  }
 });
